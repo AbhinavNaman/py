@@ -1,0 +1,160 @@
+PROGRAM -6
+(A)
+
+import string
+def count_words(input_file, output_file):
+word_count = {}
+# Read input file and count occurrences of each word
+with open(input_file, 'r') as file:
+for line in file:
+# Remove punctuation and convert to lowercase
+line = line.translate(str.maketrans('', '', string.punctuation))
+line = line.lower()
+# Split the line into words
+words = line.split()
+# Count the occurrences of each word
+for word in words:
+if word in word_count:
+word_count[word] += 1
+else:
+word_count[word] = 1
+# Write word count results to the output file
+with open(output_file, 'w') as file:
+for word, count in word_count.items():
+file.write(f"{word}: {count}\n")
+# Usage example
+input_file = "input.txt"
+output_file = "output.txt"
+count_words(input_file, output_file)
+OUTPUT
+
+PROGRAM -6
+(B)
+
+import os
+def list_files_and_subdirectories(directory):
+file_list = []
+for root, directories, files in os.walk(directory):
+for file in files:
+file_list.append(os.path.join(root, file))
+with open("file_list.txt", "w") as file:
+file.write("\n".join(file_list))
+print("List of files and subdirectories:")
+for item in file_list:
+print(item)
+# Get directory path from the user
+directory_path = input("Enter the directory path: ")
+# Call the function
+list_files_and_subdirectories(directory_path)
+
+//////////////////////////////////////////////////////////////////
+
+PROGRAM -7
+(A)
+class Rectangle:
+def __init__(self, length, width):
+self.length = length
+self.width = width
+def area(self):
+return self.length * self.width
+def perimeter(self):
+return 2 * (self.length + self.width)
+
+# Creating an object of the Rectangle class
+rectangle = Rectangle(4, 6)
+# Displaying the area and perimeter of the rectangle
+print("Area:", rectangle.area())
+print("Perimeter:", rectangle.perimeter())
+
+
+PROGRAM -7
+(B)
+class Animal:
+def __init__(self, name, age):
+self.name = name
+self.age = age
+def speak(self):
+print("The animal speaks.")
+
+class Dog(Animal):
+def bark(self):
+print("The dog barks.")
+
+# Creating an object of the Dog class
+dog = Dog("Max", 3)
+# Demonstrating the speak() method of the Animal class
+dog.speak()
+# Demonstrating the bark() method of the Dog class
+dog.bark()
+
+///////////////////////////////////////////////////////////////////
+
+PROGRAM -8
+(A)
+import math
+class Shape:
+def calculate_area(self):
+pass
+class Rectangle(Shape):
+def __init__(self, length, width):
+self.length = length
+self.width = width
+def calculate_area(self):
+return self.length * self.width
+class Triangle(Shape):
+def __init__(self, base, height):
+self.base = base
+self.height = height
+def calculate_area(self):
+return 0.5 * self.base * self.height
+class Circle(Shape):
+def __init__(self, radius):
+self.radius = radius
+def calculate_area(self):
+return math.pi * self.radius ** 2
+# Demonstrate polymorphism
+shapes = [Rectangle(4, 5), Triangle(3, 6), Circle(2)]
+for shape in shapes:
+print("Area:", shape.calculate_area())
+
+
+/////////////////////////////////////////////////////////////
+
+PROGRAM -9
+(A)
+import pandas as pd
+# Read data from the Excel spreadsheet
+df = pd.read_excel('data.xlsx', sheet_name='Sheet1')
+# Calculate the average of column A
+average = df['A'].mean()
+print('Average of column A:', average)
+# Find the maximum value in column B
+maximum = df['B'].max()
+print('Maximum value in column B:', maximum)
+# Create a new Excel file and write the results
+output_df = pd.DataFrame({'Average': [average], 'Maximum': [maximum]})
+output_df.to_excel('output.xlsx', sheet_name='Sheet1', index=False)
+print('Results written to output.xlsx')
+
+
+
+PROGRAM -9
+(B)
+import requests
+from bs4 import BeautifulSoup
+# Send GET request to the URL
+url = "https://www.example.com"
+response = requests.get(url)
+# Parse the HTML content
+soup = BeautifulSoup(response.content, 'html.parser')
+# Extract and print all the <h2> tags
+h2_tags = soup.find_all('h2')
+for h2 in h2_tags:
+print(h2.text)
+# Find and print the href attributes of all the links
+links = soup.find_all('a')
+for link in links:
+print(link.get('href'))
+# Extract and print the content of the first paragraph
+first_paragraph = soup.find('p').text
+print("First paragraph:", first_paragraph)
